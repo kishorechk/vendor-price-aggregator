@@ -1,6 +1,6 @@
 package com.integwise.jms;
 
-import org.slf4j.Logger;
+/*import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
@@ -17,4 +17,4 @@ public class Sender {
     LOGGER.info("sending message='{}'", message);
     jmsTemplate.convertAndSend("helloworld.q", message);
   }
-}
+}*/

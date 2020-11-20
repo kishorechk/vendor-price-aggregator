@@ -1,6 +1,6 @@
 package com.integwise.jms;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
+/*import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,4 +37,4 @@ public class SenderConfig {
   public Sender sender() {
     return new Sender();
   }
-}
+}*/

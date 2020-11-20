@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class JmsTest {
 
-  @Autowired
+  /*@Autowired
   private Sender sender;
 
   @Autowired
@@ -23,5 +23,5 @@ public class JmsTest {
 
     receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
     assertThat(receiver.getLatch().getCount()).isEqualTo(0);
-  }
+  }*/
 }

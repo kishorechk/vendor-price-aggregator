@@ -18,20 +18,23 @@ import com.integwise.service.PriceDataService;
 @RequestMapping("/api/prices")
 public class PriceDataController {
 	
-	private final static Logger logger = LoggerFactory.getLogger(PriceDataController.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(PriceDataController.class);
 	
-    @Autowired
     private PriceDataService priceDataService;
+    
+    public PriceDataController(PriceDataService priceDataService) {
+    	this.priceDataService = priceDataService;
+    }
 
     @GetMapping("/vendor/{vendorId}")
     List<InstrumentPrice> getPricesByVendorId(@PathVariable String vendorId) throws ParseException {
-    	logger.info("call getPricesByVendorId {}", vendorId);
+    	LOGGER.info("call getPricesByVendorId {}", vendorId);
         return priceDataService.getPricesByVendorId(vendorId);
     }
 
     @GetMapping("/instrument/{instrumentId}")
     List<InstrumentPrice> getPricesByInstrumentId(@PathVariable String instrumentId) throws ParseException {
-    	logger.info("getPricesByInstrumentId {}", instrumentId);
+    	LOGGER.info("getPricesByInstrumentId {}", instrumentId);
         return priceDataService.getPricesByInstrumentId(instrumentId);
     }
 }
