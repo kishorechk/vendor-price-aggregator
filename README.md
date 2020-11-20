@@ -36,13 +36,13 @@ The vendor price updates will be processed as shown below:
 
 ![Entity Model](./images/entity-model.png)
 
-The solution initially supports json message format for vendor and clients. This can be extended to support other formats like XML, CSV by building transformer to process specific message format. 
+The solution initially supports JSON message format for vendor and clients. The JSON format has been chosen due its lightweight format and easy to marshal and unmarshal. The solution can be extended to support other formats like XML, CSV by building transformer to process specific message format. 
 
 ### Store
 The solution stores the prices in local store which will be updated for all the price updates in realtime. The solution currently uses in-memory hashmap which can be switched to actual database in future.
 
 ### Cache
-The solution maintains a local cache (ehCache) of prices which will be updated for all the price updates in real time. The cache eviction policy setup to delete the records older than 30 days.
+The solution maintains a local cache (ehCache) of prices which will be updated for all the price updates in real time. The cache eviction policy setup to delete the records older than 30 days. There will be no data older than 30 days in the cache. If there is no feed received for >30 days then the system cannot provide one to a client request.
  
 ### Webservices
 The solution offers REST API endpoints to fetch prices -
