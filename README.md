@@ -1,6 +1,6 @@
 ## Vendor Price Aggregator
 
-The goal of the system is to aggregate vendor price information for instruments and make it available for the downstream clients.
+The vendor price aggregator aggregates vendor price information for instruments and make it available for the downstream clients.
 
 The system supports the following features:
 1. Process the real time price updates for instruments from different vendors
@@ -16,8 +16,6 @@ The system supports the following features:
 
 ![High Level Flow](./images/highlevel.png)
 
-[highlevel]: ./images/highlevel.png "High Level Flow"
-
 ### Message Channels and Flow
 
 One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type chosen is a topic so that the vendor price data can be directly used by other consumers if required.
@@ -32,9 +30,9 @@ The vendor price updates will be processed as shown below:
 
 ### Entity Model
 
-An Instrument Price consists these fields - instrumentId, vendorId, bidPrice, askPrice, priceDate. 
-Unique key (instrument id, vendor id, priceDate) 
-The creation date will be set for each record when storing in local store, cache. This field will be used for archiving the old data.
+* Instrument Price entity consists fields - instrumentId, vendorId, bidPrice, askPrice, priceDate. 
+* Composit unique key - (instrument id, vendor id, priceDate) 
+* The creation date will be set for each record when storing in local store, cache. This field will be used for archiving the old data.
 
 ![Entity Model](./images/entity-model.png)
 
