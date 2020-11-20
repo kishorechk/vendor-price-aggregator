@@ -18,9 +18,9 @@ The system supports the following features:
 
 ### Message Channels and Flow
 
-One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type chosen is a topic so that the vendor price data can be directly used by other consumers if required.
+One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a JMS topic so that the vendor price data can be directly used by other consumers if required.
 
-One Pub-Sub channel to publish the aggregated pries for Clients to consume. This allows the interested clients to subscribe for price updates. Channel type is a Topic to allow intested downstrean clients can subscribe.
+One Pub-Sub channel to publish the aggregated pries for Clients to consume. This allows the interested clients to subscribe for price updates. Channel type is a JMS Topic to allow interested downstrean clients can subscribe.
 
 #### Sequence Diagram
 
@@ -42,7 +42,7 @@ The solution initially supports json message format for vendor and clients. This
 The solution stores the prices in local store which will be updated for all the price updates in realtime. The solution currently uses in-memory hashmap which can be switched to actual database in future.
 
 ### Cache
-The solution maintains a local cache of prices which will be updated for all the price updates in real time. The cache eviction policy setup to delete the records older than 30 days.
+The solution maintains a local cache (ehCache) of prices which will be updated for all the price updates in real time. The cache eviction policy setup to delete the records older than 30 days.
  
 ### Webservices
 The solution offers REST API endpoints to fetch prices -
