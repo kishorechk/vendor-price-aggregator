@@ -42,7 +42,7 @@ The solution initially supports json message format for vendor and clients. This
 The solution stores the prices in local store which will be updated for all the price updates in realtime. The solution currently uses in-memory hashmap which can be switched to actual database in future.
 
 ### Cache
-The solution maintains a cache (ehCache) of prices which will be updated for all the price updates in real time. The cache evictio policy setup to delete the records older than 30 days.
+The solution maintains a local cache of prices which will be updated for all the price updates in real time. The cache eviction policy setup to delete the records older than 30 days.
  
 ### Webservices
 The solution offers REST API endpoints to fetch prices -
