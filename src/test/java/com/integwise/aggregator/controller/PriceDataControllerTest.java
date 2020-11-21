@@ -39,4 +39,5 @@ public class PriceDataControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.[0].instrumentId").value(TestUtils.instrument1));
     }
+ 
 }

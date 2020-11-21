@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.integwise.aggregator.Constants;
 import com.integwise.aggregator.domain.InstrumentPrice;
-import com.integwise.aggregator.jms.PriceDataPublisher;
+import com.integwise.aggregator.publisher.PriceDataPublisher;
 import com.integwise.aggregator.store.MapDataStore;
 
 @Service
@@ -38,13 +38,13 @@ public class PriceDataService {
 		this.priceDataPublisher = priceDataPublisher;
 	}
     
-    @Cacheable(cacheNames=Constants.GET_PRICES_BY_VENDOR)
+    @Cacheable(cacheNames=Constants.GET_PRICES_BY_VENDOR_CACHE)
     public Set<InstrumentPrice> getPricesByVendorId(String vendorId) {
     	LOGGER.info("Get Prices By Vendor Id");
         return new HashSet<> (priceDataStore.getAll().stream().filter(v -> v.getKey().getVendorId().equals(vendorId)).collect(Collectors.toList()));
     }
 
-    @Cacheable(cacheNames=Constants.GET_PRICES_BY_INSTRUMENT)
+    @Cacheable(cacheNames=Constants.GET_PRICES_BY_INSTRUMENT_CACHE)
     public Set<InstrumentPrice> getPricesByInstrumentId(String instrumentId) {
     	LOGGER.info("Get Prices By Instrument Id");
         return new HashSet<> (priceDataStore.getAll().stream().filter(v -> v.getKey().getInstrumentId().equals(instrumentId)).collect(Collectors.toList()));
@@ -61,7 +61,7 @@ public class PriceDataService {
     }
 
 	private void updateInstrumentCache(InstrumentPrice price) {
-		Cache cache = cacheManager.getCache(Constants.GET_PRICES_BY_INSTRUMENT);
+		Cache cache = cacheManager.getCache(Constants.GET_PRICES_BY_INSTRUMENT_CACHE);
 		Cache.ValueWrapper instrumentCache = cache.get(price.getInstrumentId());
 		HashSet<InstrumentPrice> set;
 		if(instrumentCache!=null) {
@@ -70,11 +70,11 @@ public class PriceDataService {
 		} else {
 			set = new HashSet(Arrays.asList(price));
 		}
-		cacheManager.getCache(Constants.GET_PRICES_BY_INSTRUMENT).put(price.getInstrumentId(), set);
+		cacheManager.getCache(Constants.GET_PRICES_BY_INSTRUMENT_CACHE).put(price.getInstrumentId(), set);
 	}
 
 	private void updateVendorCache(InstrumentPrice price) {
-		Cache cache = cacheManager.getCache(Constants.GET_PRICES_BY_VENDOR);
+		Cache cache = cacheManager.getCache(Constants.GET_PRICES_BY_VENDOR_CACHE);
 		Cache.ValueWrapper instrumentCache = cache.get(price.getVendorId());
 		HashSet<InstrumentPrice> set;
 		if(instrumentCache!=null) {
@@ -83,7 +83,7 @@ public class PriceDataService {
 		} else {
 			set = new HashSet(Arrays.asList(price));
 		}
-		cacheManager.getCache(Constants.GET_PRICES_BY_VENDOR).put(price.getVendorId(), set);
+		cacheManager.getCache(Constants.GET_PRICES_BY_VENDOR_CACHE).put(price.getVendorId(), set);
 	}
 	
 	public void publish(InstrumentPrice price) {

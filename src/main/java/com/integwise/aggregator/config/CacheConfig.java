@@ -38,8 +38,8 @@ public class CacheConfig {
 	@Bean
 	public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-        	cm.createCache(Constants.GET_PRICES_BY_VENDOR, cacheConfiguration);
-            cm.createCache(Constants.GET_PRICES_BY_INSTRUMENT, cacheConfiguration);
+        	cm.createCache(Constants.GET_PRICES_BY_VENDOR_CACHE, cacheConfiguration);
+            cm.createCache(Constants.GET_PRICES_BY_INSTRUMENT_CACHE, cacheConfiguration);
         };
     }
 }

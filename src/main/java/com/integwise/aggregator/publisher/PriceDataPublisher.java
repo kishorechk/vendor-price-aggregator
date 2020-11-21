@@ -1,4 +1,4 @@
-package com.integwise.aggregator.jms;
+package com.integwise.aggregator.publisher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

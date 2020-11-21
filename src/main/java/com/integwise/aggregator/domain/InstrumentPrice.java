@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class InstrumentPrice extends Entity {
+public class InstrumentPrice implements Entity {
 	
-	public class InstrumentPriceKey extends Entity{
+	public class InstrumentPriceKey implements Entity{
         private String vendorId;
         private String instrumentId;
         private Date priceDate;
@@ -46,7 +46,7 @@ public class InstrumentPrice extends Entity {
         }
         
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(Entity obj) {
             if (this == obj)
                 return true;
             if (obj == null)
@@ -139,7 +139,7 @@ public class InstrumentPrice extends Entity {
     }
     
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Entity obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
