@@ -14,9 +14,9 @@ The vendor price aggregator supports the following features:
 
 ### Message Channels and Flow
 
-One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a JMS topic so that the vendor price data can be directly used by other consumers if required.
+One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a ActiveMQ topic so that the vendor price data can be directly used by other consumers if required.
 
-One Pub-Sub channel to publish the aggregated pries for Clients to consume. This allows the interested clients to subscribe for price updates. The channel type is a JMS Topic to allow interested downstrean clients can subscribe.
+One Pub-Sub channel to publish the aggregated pries for Clients to consume. This allows the interested clients to subscribe for price updates. The channel type is a ActiveMQ topic to allow interested downstrean clients can subscribe.
 
 ### Messafe format
 The solution initially supports JSON message format for vendor and clients. The JSON format has been chosen due its lightweight format and easy to marshal and unmarshal. The solution can be extended to support other formats like XML, CSV by building transformer to process specific message format. 
