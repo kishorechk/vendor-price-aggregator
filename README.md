@@ -56,7 +56,7 @@ The REST API will fetch the data from cache for better performance. If any cache
 Consumer can access the pricing API to fetch the prices as shown below:
 ![Consumer API Sequence Diagram](./images/consumer_api_sequence.png)
 
-### Technologies Used:
+### Technologies Used
 The system is designed as a microservice using the following technologies:
 * Java – versions 1.8
 * Spring – including Spring boot, Spring integration, Spring Web.
