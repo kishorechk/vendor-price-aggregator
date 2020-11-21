@@ -1,6 +1,6 @@
 ## Vendor Price Aggregator
 
-The vendor price aggregator aggregates vendor price information for instruments and make it available for the downstream clients.
+The vendor price aggregator aggregates price information for instruments and make it available for the downstream clients.
 
 The system supports the following features:
 1. Process the real time price updates for instruments from different vendors
