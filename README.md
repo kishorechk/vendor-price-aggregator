@@ -23,7 +23,7 @@ The solution initially supports JSON message format for vendor and clients. The 
 
 Sample message
 ```
-{"vendorId": "", "instrumentId": "", "bidPrice": 100.00, "askPrice": 120.00, "priceDate": "2020-11-21T10:20:22"}
+{"vendorId": "Vendor1", "instrumentId": "APPL", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"}
 ```
 #### Sequence Diagram
 
