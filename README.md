@@ -69,6 +69,8 @@ The system is designed as a microservice using the following technologies:
 
 ### How to run
 
+Run the below commands from the command line:
+
 ```
 git clone https://github.com/kishorechk/vendor-price-aggregator.git 
 
