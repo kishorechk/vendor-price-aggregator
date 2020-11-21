@@ -18,7 +18,7 @@ One Pub-sub Channel per vendor - Each vendor has a designated channel for the mo
 
 One Pub-Sub channel to publish the aggregated pries for Clients to consume. This allows the interested clients to subscribe for price updates. The channel type is a ActiveMQ topic to allow interested downstrean clients can subscribe.
 
-### Messafe format
+### Message format
 The solution initially supports JSON message format for vendor and clients. The JSON format has been chosen due its lightweight format and easy to marshal and unmarshal. The solution can be extended to support other formats like XML, CSV by building transformer to process specific message format. 
 
 Sample message
