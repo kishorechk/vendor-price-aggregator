@@ -70,6 +70,8 @@ The system is designed as a microservice using the following technologies:
 
 ```
 git clone https://github.com/kishorechk/vendor-price-aggregator.git 
+
 cd vendor-price-aggregator 
+
 ./mvnw spring-boot:run
 ```
