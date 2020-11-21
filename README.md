@@ -75,3 +75,7 @@ cd vendor-price-aggregator
 
 ./mvnw spring-boot:run
 ```
+
+### Swagger UI
+
+REST API documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
