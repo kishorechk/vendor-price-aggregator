@@ -20,7 +20,7 @@ public class DatastoreConfig {
 	
 	@Bean(name="priceDataStore")
 	public MapDataStore<InstrumentPrice.InstrumentPriceKey, InstrumentPrice> priceDataStore() throws UnsupportedDatastoreTypeException {
-		if(properties.getDataStoreType() == null || properties.getDataStoreType().equals("MAP")) {
+		if(properties.getDataStoreType() == null || properties.getDataStoreType().equals("MAPDB")) {
 			return new MapDataStore<>();
 		} else {
 			throw new UnsupportedDatastoreTypeException("Unsupported Datastore Type Error "+ properties.getDataStoreType());

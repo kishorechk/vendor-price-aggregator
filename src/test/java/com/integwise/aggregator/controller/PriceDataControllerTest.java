@@ -25,7 +25,7 @@ public class PriceDataControllerTest {
     private PriceDataService priceDataService;
     
     @Test
-    public void getPricesByVendorId() throws Exception {
+    public void testGetPricesByVendorId() throws Exception {
         TestUtils.getAllPrices().forEach(price -> priceDataService.addOrUpdate(price));
         mockMvc.perform(MockMvcRequestBuilders.get("/api/prices/vendor/{vendorId}", TestUtils.vendor1).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -33,7 +33,7 @@ public class PriceDataControllerTest {
     }
 
     @Test
-    public void getPricesByInstrumentId() throws Exception {
+    public void testGetPricesByInstrumentId() throws Exception {
         TestUtils.getAllPrices().forEach(price -> priceDataService.addOrUpdate(price));
         mockMvc.perform(MockMvcRequestBuilders.get("/api/prices/instrument/{instrumentId}", TestUtils.instrument1).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
