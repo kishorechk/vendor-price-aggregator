@@ -9,4 +9,7 @@ public class Constants {
 	
 	public final static String VENDOR1_PRICE_FEED_CHANNEL = "vendor1-price-feed-channel";
 	public final static String VENDOR2_PRICE_FEED_CHANNEL = "vendor2-price-feed-channel";
+
+	public final static String VENDOR1_PRICE_FEED_FILE="vendor1-inputfile.txt";
+	public final static String VENDOR2_PRICE_FEED_FILE="vendor2-inputfile.txt";
 }

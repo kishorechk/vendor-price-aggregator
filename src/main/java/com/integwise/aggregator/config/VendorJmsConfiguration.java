@@ -10,6 +10,7 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.context.IntegrationContextUtils;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
+import org.springframework.integration.dsl.Transformers;
 import org.springframework.integration.jms.dsl.Jms;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
@@ -59,6 +60,7 @@ public class VendorJmsConfiguration {
 				.destination(Constants.VENDOR1_PRICE_FEED_CHANNEL)
 				.errorChannel(IntegrationContextUtils.ERROR_CHANNEL_BEAN_NAME)
 				)
+				.transform(Transformers.fromJson(InstrumentPrice.class))
                 .handle(m -> priceDataService.addOrUpdate((InstrumentPrice)m.getPayload()))
                 .get();
 	}
@@ -70,6 +72,7 @@ public class VendorJmsConfiguration {
 				.destination(Constants.VENDOR2_PRICE_FEED_CHANNEL)
 				.errorChannel(IntegrationContextUtils.ERROR_CHANNEL_BEAN_NAME)
 				)
+				.transform(Transformers.fromJson(InstrumentPrice.class))
                 .handle(m -> priceDataService.addOrUpdate((InstrumentPrice)m.getPayload()))
                 .get();
 	}
