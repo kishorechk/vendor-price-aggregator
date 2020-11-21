@@ -85,7 +85,9 @@ public class InstrumentPrice extends Entity {
     private InstrumentPriceKey key;
     private BigDecimal bidPrice;
     private BigDecimal askPrice;
-    private Date creationDate;
+    private String vendorId;
+    private String instrumentId;
+    private Date priceDate;
 
     @JsonCreator
     public InstrumentPrice(@JsonProperty("vendorId") final String vendorId,
@@ -95,6 +97,9 @@ public class InstrumentPrice extends Entity {
     		@JsonProperty("priceDate") final Date priceDate) 
     {
         this.key = new InstrumentPriceKey(vendorId, instrumentId, priceDate);
+        this.vendorId = vendorId;
+        this.instrumentId = instrumentId;
+        this.priceDate = priceDate;
         this.bidPrice = bidPrice;
         this.askPrice = askPrice;
     }
@@ -109,6 +114,18 @@ public class InstrumentPrice extends Entity {
 
     public BigDecimal getAskPrice() {
         return this.askPrice;
+    }
+
+    public String getVendorId() {
+        return this.vendorId;
+    }
+
+    public String getInstrumentId() {
+        return this.instrumentId;
+    }
+
+    public Date getPriceDate() {
+        return this.priceDate;
     }
     
     @Override

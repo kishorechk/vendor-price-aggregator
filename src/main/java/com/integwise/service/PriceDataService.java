@@ -26,13 +26,13 @@ public class PriceDataService {
 	}
     
     @Cacheable(value="vendor-all-instrument-prices", key = "#vendorId")
-    public List<InstrumentPrice> getPricesByVendorId(String vendorId) throws ParseException {
+    public List<InstrumentPrice> getPricesByVendorId(String vendorId) {
     	LOGGER.info("Get Prices By Vendor Id");
         return priceDataStore.getAll().stream().filter(v -> v.getKey().getVendorId().equals(vendorId)).collect(Collectors.toList());
     }
 
     @Cacheable(value="instrument-all-vendor-prices", key = "#instrumentId")
-    public List<InstrumentPrice> getPricesByInstrumentId(String instrumentId) throws ParseException {
+    public List<InstrumentPrice> getPricesByInstrumentId(String instrumentId) {
     	LOGGER.info("Get Prices By Instrument Id");
         return priceDataStore.getAll().stream().filter(v -> v.getKey().getInstrumentId().equals(instrumentId)).collect(Collectors.toList());
     }
