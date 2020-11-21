@@ -78,5 +78,4 @@ cd vendor-price-aggregator
 
 ### Swagger UI
 
-
-http://localhost:8080/swagger-ui/index.html#/price-data-controller
+REST API documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
