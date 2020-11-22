@@ -51,15 +51,24 @@ Sample message
 ![Entity Model](./images/entity-model.png)
 
 ### Store
-The solution stores the prices in local store to maintain aggregate prices. The solution currently uses in-memory maps which can be switched to actual database in future.
+The solution currently uses in-memory maps stores the prices. The datastore can be switched to different type with configuration change and implementing required DAO logic.
+```
+app.aggregator.data-store-type=MAPDB
+```
 
 ### Cache
 The solution uses Ehcache to maintains a local cache of prices. The cache is configured to delete the records older than 30 days and it holds maximum of 10000 entries. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
+```
+app.aggregator.cache-time-to-live-days=30
+app.aggregator.cache-max-entries=100000
+```
  
 ### Webservices
 The solution offers REST API GET endpoints to fetch prices -
-* all instrument prices by vendor
-* all vendor prices by instrument
+```
+* GET /api/prices/vendor/{vendorId}
+* GET /api/prices/instrument/{instrumentId}
+```
 
 The REST API GET services will fetch the data from cache for better performance. If any cache miss, the data will fetched from store and updates the cache.
 
@@ -67,6 +76,11 @@ Consumer can access the pricing API to fetch the prices as shown below:
 ![Consumer API Sequence Diagram](./images/consumer_api_sequence.png)
 
 The solution also offers a POST service which can be used to insert new instrument prices.
+```
+POST /api/prices
+[{"vendorId": "Vendor1", "instrumentId": "APPL", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"},
+{"vendorId": "Vendor1", "instrumentId": "GOOG", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"}]
+```
 
 REST API documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
 
@@ -91,7 +105,7 @@ cd vendor-price-aggregator
 
 ./mvnw spring-boot:run
 ```
-The command starts the integration flows and REST services along with Swagger UI for API documentation.
+The command starts the Spring integration flows and REST services along with Swagger docs and UI for API documentation.
 
 ### Swagger UI
 
