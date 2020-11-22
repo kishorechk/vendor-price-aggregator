@@ -2,6 +2,7 @@ package com.integwise.aggregator.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,40 +38,17 @@ public class InstrumentPrice implements Entity {
 
         @Override
         public int hashCode() {
-            final int prime = 31;
-            int result = super.hashCode();
-            result = prime * result + ((vendorId == null) ? 0 : vendorId.hashCode());
-            result = prime * result + ((instrumentId == null) ? 0 : instrumentId.hashCode());
-            result = prime * result + ((priceDate == null) ? 0 : priceDate.hashCode());
-            return result;
+        	return Objects.hash(instrumentId, vendorId, priceDate);
         }
         
         @Override
         public boolean equals(Entity obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            InstrumentPriceKey other = (InstrumentPriceKey) obj;
-            
-            if (vendorId == null) {
-                if (other.vendorId != null)
-                    return false;
-            } else if (!vendorId.equals(other.vendorId))
-                return false;
-            if (instrumentId == null) {
-                if (other.instrumentId != null)
-                    return false;
-            } else if (!instrumentId.equals(other.instrumentId))
-                return false;
-            if (priceDate == null) {
-                if (other.priceDate != null)
-                    return false;
-            } else if (!priceDate.equals(other.priceDate))
-                return false;
-            return true;
+        	if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            InstrumentPriceKey that = (InstrumentPriceKey) obj;
+            return Objects.equals(instrumentId, that.instrumentId) &&
+                    Objects.equals(vendorId, that.vendorId) &&
+                    Objects.equals(priceDate, that.priceDate);
         }
         
         @Override
@@ -130,40 +108,19 @@ public class InstrumentPrice implements Entity {
     
     @Override
 	public int hashCode() {
-		final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        result = prime * result + ((bidPrice == null) ? 0 : bidPrice.hashCode());
-        result = prime * result + ((askPrice == null) ? 0 : askPrice.hashCode());
-		return result;
+    	return Objects.hash(instrumentId, vendorId, bidPrice, askPrice, priceDate);
     }
     
 	@Override
 	public boolean equals(Entity obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-        InstrumentPrice other = (InstrumentPrice) obj;
-        
-        if (key == null) {
-			if (other.key != null)
-				return false;
-		} else if (!key.equals(other.key))
-			return false;
-		if (bidPrice == null) {
-			if (other.bidPrice != null)
-				return false;
-		} else if (!bidPrice.equals(other.bidPrice))
-			return false;
-        if (askPrice == null) {
-            if (other.askPrice != null)
-                return false;
-        } else if (!askPrice.equals(other.askPrice))
-            return false;
-		return true;
+		 if (this == obj) return true;
+	        if (obj == null || getClass() != obj.getClass()) return false;
+	        InstrumentPrice that = (InstrumentPrice) obj;
+	        return Objects.equals(instrumentId, that.instrumentId) &&
+	                Objects.equals(vendorId, that.vendorId) &&
+	                Objects.equals(bidPrice, that.bidPrice) &&
+	                Objects.equals(askPrice, that.askPrice) &&
+	                Objects.equals(priceDate, that.priceDate);
     }
     
     @Override
