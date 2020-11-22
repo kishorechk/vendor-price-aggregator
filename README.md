@@ -12,7 +12,7 @@ The vendor price aggregator supports the following features:
 
 ![High Level Flow](./images/highlevel.png)
 
-### Integration Flows
+### Message Channels
 
 One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a ActiveMQ topic so that the vendor price data can be directly used by other consumers if required.
 
@@ -24,7 +24,9 @@ The vendor price updates will be processed as shown below -
 
 ![Vendor Sequence Diagram](./images/vendor_price_updates_sequence.png)
 
+### Spring Integration Flows
 #### Vendor Jms Integration Flow
+
 This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration DSL to implement to this flow.
 
 ![Vendor Jms Integration Flow](./images/VendorJmsIntegrationFlow.png)
@@ -50,7 +52,7 @@ Sample message
 
 ![Entity Model](./images/entity-model.png)
 
-### Store
+### Data Store
 The solution currently uses in-memory maps stores the prices. The datastore can be switched to different type with configuration change and implementing required DAO logic.
 ```
 app.aggregator.data-store-type=MAPDB
