@@ -9,7 +9,7 @@ The vendor price aggregator supports the following features:
     * all vendor prices by instrument
 
 ### Assumptions:
-Based on the clarifications with the team, I have made the below assumptions to implement the PoC - 
+Based on the clarifications from the team, I have made the below assumptions to implement this PoC - 
 * Entity model consists few key fields but the real instrument price data will have more fields.
 * JSON message format used due to its lightweight nature and easy to parsing. In case of Vendor/Consumers wants data in other formats like (XML, CSV), the solution can be extended with new transformers.
 * The cache is configured to delete the records older than 30 days. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
