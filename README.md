@@ -12,7 +12,7 @@ The vendor price aggregator supports the following features:
 
 ![High Level Flow](./images/highlevel.png)
 
-### Message Channels and Flow
+### Integration Flows
 
 One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a ActiveMQ topic so that the vendor price data can be directly used by other consumers if required.
 
@@ -24,7 +24,16 @@ The vendor price updates will be processed as shown below -
 
 ![Vendor Sequence Diagram](./images/vendor_price_updates_sequence.png)
 
-Spring Integration flows configured to process the messages - update cache, update local store and publish prices to consumers.
+#### Vendor Jms Integration Flow
+This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration DSL to implement to this flow.
+
+![Vendor Jms Integration Flow](./images/VendorJmsIntegrationFlow.png)
+
+#### Vendor File Integration Flow
+
+This integration flow show case read vendor prices from a file and publish them as messages. The solution uses Spring Integration DSL to implement to this flow.
+
+![Vendor File Integration Flow](./images/VendorFileIntegrationFlow.png)
 
 ### Message format
 The solution initially supports JSON message format for vendor and clients. The JSON format has been chosen due its lightweight format and easy to marshal and unmarshal. The solution can be extended to support other formats like XML, CSV by building transformer to process specific message format. 
@@ -45,17 +54,21 @@ Sample message
 The solution stores the prices in local store to maintain aggregate prices. The solution currently uses in-memory maps which can be switched to actual database in future.
 
 ### Cache
-The solution uses Ehcache to maintains a local cache of prices. The cache is configured to delete the records older than 30 days. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
+The solution uses Ehcache to maintains a local cache of prices. The cache is configured to delete the records older than 30 days and it holds maximum of 10000 entries. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
  
 ### Webservices
-The solution offers REST API endpoints to fetch prices -
+The solution offers REST API GET endpoints to fetch prices -
 * all instrument prices by vendor
 * all vendor prices by instrument
 
-The REST API will fetch the data from cache for better performance. If any cache miss, the data will fetched from store and updates the cache.
+The REST API GET services will fetch the data from cache for better performance. If any cache miss, the data will fetched from store and updates the cache.
 
 Consumer can access the pricing API to fetch the prices as shown below:
 ![Consumer API Sequence Diagram](./images/consumer_api_sequence.png)
+
+The solution also offers a POST service which can be used to insert new instrument prices.
+
+REST API documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
 
 ### Technologies Used
 The system is designed as a microservice using the following technologies:
@@ -78,6 +91,7 @@ cd vendor-price-aggregator
 
 ./mvnw spring-boot:run
 ```
+The command starts the integration flows and REST services along with Swagger UI for API documentation.
 
 ### Swagger UI
 
