@@ -12,7 +12,7 @@ The vendor price aggregator supports the following features:
 
 ![High Level Flow](./images/highlevel.png)
 
-### Integration Flows
+### Message Channels
 
 One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a ActiveMQ topic so that the vendor price data can be directly used by other consumers if required.
 
@@ -24,7 +24,9 @@ The vendor price updates will be processed as shown below -
 
 ![Vendor Sequence Diagram](./images/vendor_price_updates_sequence.png)
 
+### Spring Integration Flows
 #### Vendor Jms Integration Flow
+
 This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration DSL to implement to this flow.
 
 ![Vendor Jms Integration Flow](./images/VendorJmsIntegrationFlow.png)
@@ -50,37 +52,40 @@ Sample message
 
 ![Entity Model](./images/entity-model.png)
 
-### Store
-The solution stores the prices in local store to maintain aggregate prices. The solution currently uses in-memory maps which can be switched to actual database in future.
+### Data Store
+The solution currently uses in-memory maps stores the prices. The datastore can be switched to different type with configuration change and implementing required DAO logic.
+```
+app.aggregator.data-store-type=MAPDB
+```
 
 ### Cache
 The solution uses Ehcache to maintains a local cache of prices. The cache is configured to delete the records older than 30 days and it holds maximum of 10000 entries. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
+```
+app.aggregator.cache-time-to-live-days=30
+app.aggregator.cache-max-entries=100000
+```
  
 ### Webservices
 The solution offers REST API GET endpoints to fetch prices -
-* all instrument prices by vendor
-* all vendor prices by instrument
+```
+* GET /api/prices/vendor/{vendorId}
+* GET /api/prices/instrument/{instrumentId}
+```
 
 The REST API GET services will fetch the data from cache for better performance. If any cache miss, the data will fetched from store and updates the cache.
 
 Consumer can access the pricing API to fetch the prices as shown below:
 ![Consumer API Sequence Diagram](./images/consumer_api_sequence.png)
 
-The solution also offers a POST service which can be used to insert new instrument prices.
+The solution also offers a POST service which can be used to insert new instrument prices. This can be used for demo purposes.
+```
+POST /api/prices
 
-REST API documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
+[{"vendorId": "Vendor1", "instrumentId": "APPL", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"},
+{"vendorId": "Vendor1", "instrumentId": "GOOG", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"}]
+```
 
-### Technologies Used
-The system is designed as a microservice using the following technologies:
-* Java – versions 1.8
-* Spring – including Spring boot, Spring integration, Spring Web.
-* JMS – ActiveMQ
-* Caching – Ehcache
-* Store - in-memory map
-* Testing frameworks – JUnit/Mockito
-* Maven
-
-### How to run
+### Run Local
 
 Run the below commands from the command line:
 
@@ -91,8 +96,7 @@ cd vendor-price-aggregator
 
 ./mvnw spring-boot:run
 ```
-The command starts the integration flows and REST services along with Swagger UI for API documentation.
+The command starts the Spring Boot application which includes integration flows and REST services and Swagger docs and UI for API documentation.
 
-### Swagger UI
-
-REST API documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
+* REST API Endpoint - http://localhost:8080
+* REST API Documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
