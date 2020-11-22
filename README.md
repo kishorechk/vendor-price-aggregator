@@ -8,6 +8,14 @@ The vendor price aggregator supports the following features:
     * all instrument prices by vendor
     * all vendor prices by instrument
 
+### Assumptions:
+Based on the clarifications with the team, I have made the below assumptions to implement the PoC - 
+* Entity model consists few key fields but the real instrument price data will have more fields.
+* JSON message format used due to its lightweight nature and easy to parsing. In case of Vendor/Consumers wants data in other formats like (XML, CSV), the solution can be extended with new transformers.
+* The cache is configured to delete the records older than 30 days. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
+* No Authentication/Authorization for Client REST APIs due to time constraints. We can add OAuth2 framework to limit the access.  
+* Basic API documentation has been added using Swagger, this can be extended further to add detailed documentation.
+
 ### High Level FLow:
 
 ![High Level Flow](./images/highlevel.png)
@@ -16,7 +24,7 @@ The vendor price aggregator supports the following features:
 
 One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a ActiveMQ topic so that the vendor price data can be directly used by other consumers if required.
 
-One Pub-Sub channel to publish the aggregated pries for Clients to consume. This allows the interested clients to subscribe for price updates. The channel type is a ActiveMQ topic to allow interested downstrean clients can subscribe.
+One Pub-Sub channel to publish the aggregated pries for Clients to consume. This way, all the interested clients to subscribe for price updates. The channel type is a ActiveMQ topic to allow interested downstrean clients can subscribe.
 
 #### Sequence Diagram
 
@@ -38,7 +46,7 @@ This integration flow show case read vendor prices from a file and publish them 
 ![Vendor File Integration Flow](./images/VendorFileIntegrationFlow.png)
 
 ### Message format
-The solution initially supports JSON message format for vendor and clients. The JSON format has been chosen due its lightweight format and easy to marshal and unmarshal. The solution can be extended to support other formats like XML, CSV by building transformer to process specific message format. 
+The solution initially supports JSON message format for vendor and clients.
 
 Sample message
 ```
@@ -47,7 +55,7 @@ Sample message
 
 ### Entity Model
 
-* Instrument Price entity consists fields - instrumentId, vendorId, bidPrice, askPrice, priceDate. 
+* Instrument Price entity consists fields - instrumentId, vendorId, bidPrice, askPrice, priceDate.
 * Composite unique key - (instrument id, vendor id, priceDate)
 
 ![Entity Model](./images/entity-model.png)
@@ -84,6 +92,9 @@ POST /api/prices
 [{"vendorId": "Vendor1", "instrumentId": "APPL", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"},
 {"vendorId": "Vendor1", "instrumentId": "GOOG", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"}]
 ```
+
+#### API Security
+The solution doesn't have any authentication/authorization layer. The APIs can be secured using OAuth2. 
 
 ### Run Local
 
