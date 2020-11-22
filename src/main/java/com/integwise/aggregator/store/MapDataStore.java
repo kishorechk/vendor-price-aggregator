@@ -7,6 +7,13 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.stereotype.Component;
 
+/**
+* In-memory data store to store price data 
+* This internally uses java.util.concurrent.ConcurrentHashMap.
+* 
+* @author Kishor Chukka
+* 
+*/
 @Component
 public class MapDataStore<K, V> implements DataStore<K, V> {
 

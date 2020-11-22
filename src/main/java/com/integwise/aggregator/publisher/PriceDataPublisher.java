@@ -11,6 +11,13 @@ import org.springframework.stereotype.Component;
 import com.integwise.aggregator.config.ApplicationProperties;
 import com.integwise.aggregator.domain.InstrumentPrice;
 
+/**
+* PriceDataPublisher publishes the prices on to a JMS topic for downstream clients.
+* The consumer jms topic has to be configured in application.properties
+* 
+* @author Kishor Chukka
+* 
+*/
 @Component
 @Configuration
 @EnableConfigurationProperties(ApplicationProperties.class)

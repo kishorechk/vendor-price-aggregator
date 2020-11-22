@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.jms.ConnectionFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,12 +17,9 @@ import org.springframework.integration.annotation.Poller;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.core.GenericSelector;
 import org.springframework.integration.core.MessageSource;
-import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.dsl.StandardIntegrationFlow;
 import org.springframework.integration.file.FileReadingMessageSource;
-import org.springframework.integration.file.FileWritingMessageHandler;
 import org.springframework.integration.file.filters.AcceptOnceFileListFilter;
 import org.springframework.integration.file.filters.CompositeFileListFilter;
 import org.springframework.integration.file.filters.SimplePatternFileListFilter;
@@ -28,43 +27,36 @@ import org.springframework.integration.file.transformer.FileToStringTransformer;
 import org.springframework.integration.handler.LoggingHandler;
 import org.springframework.integration.jms.JmsOutboundGateway;
 import org.springframework.jms.annotation.EnableJms;
-import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.support.GenericMessage;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
+import org.springframework.messaging.support.GenericMessage;
 
 import com.integwise.aggregator.Constants;
+
+/**
+* Vendor File Spring Integration Configuration using Java DSL.
+* The integration flow to read input file from classpath, transform and deliver the messages to Vendor Feed Channel for further processing.
+* 
+* @author Kishor Chukka
+* 
+*/
 
 @Configuration
 @IntegrationComponentScan
 @EnableJms
-public class VendorFileConfiguration {
+public class VendorFileConfig {
+	
+	private static final Logger LOGGER =
+		      LoggerFactory.getLogger(VendorFileConfig.class);
 	
 	@Autowired
     private ConnectionFactory connectionFactory;
 	
-	public static final String INPUT_DIR = "source";
-	public static final String OUTPUT_DIR = "target";
-	
-	/*@Bean
-    public MessageSource<File> sourceDirectory() throws IOException {
-		FileReadingMessageSource messageSource = new FileReadingMessageSource();
-        messageSource.setDirectory(new ClassPathResource(INPUT_DIR).getFile());
-        return messageSource;
-    }*/
-	
 	private File fileToPoll() throws IOException {
-		File file = new ClassPathResource(INPUT_DIR).getFile();
+		File file = new ClassPathResource(Constants.INPUT_DIR).getFile();
 		return file;
 	}
-	
-	/*@Bean
-    public MessageHandler targetDirectory() {
-        FileWritingMessageHandler handler = new FileWritingMessageHandler(new File(OUTPUT_DIR));
-        handler.setExpectReply(false); // end of pipeline, reply not needed
-        return handler;
-    }*/
 	
 	@Bean
     public GenericSelector<File> onlyJsons() {

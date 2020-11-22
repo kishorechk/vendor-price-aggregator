@@ -18,12 +18,17 @@ import com.integwise.aggregator.domain.InstrumentPrice;
 import com.integwise.aggregator.publisher.PriceDataPublisher;
 import com.integwise.aggregator.store.MapDataStore;
 
+/**
+* PriceDataService is one of key class to read and write data to datastore, cache and consumer topic.
+* 
+* @author Kishor Chukka
+* 
+*/
 @Service
 @Transactional
 public class PriceDataService {
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(PriceDataService.class);
-	
 	
 	private final PriceDataPublisher priceDataPublisher;
 	

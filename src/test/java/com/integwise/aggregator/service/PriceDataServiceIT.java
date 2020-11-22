@@ -33,35 +33,35 @@ public class PriceDataServiceIT {
     @Test
     public void testGetPricesByVendorId() {
         TestUtils.getAllPrices().forEach(price -> priceDataService.addOrUpdate(price));
-        Set<InstrumentPrice> prices = priceDataService.getPricesByVendorId(TestUtils.vendor1);
+        Set<InstrumentPrice> prices = priceDataService.getPricesByVendorId(TestUtils.VENDOR1);
         assertFalse(prices.isEmpty());
-        assertEquals(3, prices.size());
+        assertEquals(4, prices.size());
     }
 
     @Test
     public void testGetPricesByInstrumentId() {
         TestUtils.getAllPrices().forEach(price -> priceDataService.addOrUpdate(price));
-        Set<InstrumentPrice> prices = priceDataService.getPricesByInstrumentId(TestUtils.instrument1);
+        Set<InstrumentPrice> prices = priceDataService.getPricesByInstrumentId(TestUtils.INSTRUMENT1);
         assertFalse(prices.isEmpty());
         assertEquals(2, prices.size());
     }
     
     @Test
-    public void testGetPricesByVendorIdInvalid() {
+    public void testGetPricesByInvalidVendorId() {
         TestUtils.getAllPrices().forEach(price -> priceDataService.addOrUpdate(price));
         Set<InstrumentPrice> prices = priceDataService.getPricesByVendorId("1");
         assertTrue(prices.isEmpty());
     }
 
     @Test
-    public void testGetPricesByInstrumentIdInvalid() {
+    public void testGetPricesByInvalidInstrumentId() {
         TestUtils.getAllPrices().forEach(price -> priceDataService.addOrUpdate(price));
         Set<InstrumentPrice> prices = priceDataService.getPricesByInstrumentId("1");
         assertTrue(prices.isEmpty());
     }
 
     @Test
-    public void testPublish() {
+    public void testPublishMessageToConsumerTopic() {
         priceDataService.publish(TestUtils.i1);
         this.jmsTemplate.setReceiveTimeout(10_0000);
         InstrumentPrice price = (InstrumentPrice) this.jmsTemplate.receiveAndConvert("consumer-prices-pub-sub-topic");
@@ -69,8 +69,8 @@ public class PriceDataServiceIT {
     }
     
     @Test
-    public void testCache() {
+    public void testCacheAvailability() {
     	TestUtils.getAllPrices().forEach(price -> priceDataService.addOrUpdate(price));
-    	assertNotNull(cacheManager.getCache(Constants.GET_PRICES_BY_VENDOR_CACHE).get(TestUtils.vendor1).get());
+    	assertNotNull(cacheManager.getCache(Constants.GET_PRICES_BY_VENDOR_CACHE).get(TestUtils.VENDOR1).get());
     }
 }

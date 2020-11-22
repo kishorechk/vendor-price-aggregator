@@ -2,6 +2,8 @@ package com.integwise.aggregator.config;
 
 import javax.jms.ConnectionFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -24,11 +26,21 @@ import com.integwise.aggregator.Constants;
 import com.integwise.aggregator.domain.InstrumentPrice;
 import com.integwise.aggregator.service.PriceDataService;
 
+/**
+* Vendor Jms Spring Integration Configuration using Java DSL.
+* The integration flow to reads the messages from vendor feed channel, transform and deliver the messages to Price Data Sevice for further processing.
+* 
+* @author Kishor Chukka
+* 
+*/
 @Configuration
 @IntegrationComponentScan
 @EnableJms
-public class VendorJmsConfiguration {
+public class VendorJmsConfig {
 
+	private static final Logger LOGGER =
+		      LoggerFactory.getLogger(VendorJmsConfig.class);
+	
 	@Autowired
     private ConnectionFactory connectionFactory;
 	

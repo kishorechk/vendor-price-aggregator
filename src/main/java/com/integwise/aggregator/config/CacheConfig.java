@@ -9,6 +9,8 @@ import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.jsr107.Eh107Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -17,13 +19,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.integwise.aggregator.Constants;
-import com.integwise.aggregator.service.PriceDataService;
 
+/**
+* Custom Ehcache configuration as per application configuration
+* 
+* @author Kishor Chukka
+* 
+*/
 @Configuration
 @EnableCaching
 @AutoConfigureBefore(value = {DatastoreConfig.class})
 @EnableConfigurationProperties(ApplicationProperties.class)
 public class CacheConfig {
+	
+	private static final Logger LOGGER =
+		      LoggerFactory.getLogger(CacheConfig.class);
 	
 	private final javax.cache.configuration.Configuration<Object, HashSet> cacheConfiguration;
 	

@@ -8,8 +8,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
+/**
+* InstrumentPrice is the main entity we'll be using to store instrument price.
+* 
+* The class InstrumentPriceKey is defined nested as vendorId, instrumentId and priceDate fields form a composite key.
+* 
+* @author Kishor Chukka
+* 
+*/
 public class InstrumentPrice implements Entity {
-	
+    
+    //composite key, inner class
 	public class InstrumentPriceKey implements Entity{
         private String vendorId;
         private String instrumentId;
