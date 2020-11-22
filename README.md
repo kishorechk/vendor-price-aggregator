@@ -75,9 +75,10 @@ The REST API GET services will fetch the data from cache for better performance.
 Consumer can access the pricing API to fetch the prices as shown below:
 ![Consumer API Sequence Diagram](./images/consumer_api_sequence.png)
 
-The solution also offers a POST service which can be used to insert new instrument prices for demo purposes.
+The solution also offers a POST service which can be used to insert new instrument prices. This can be used for demo purposes.
 ```
 POST /api/prices
+
 [{"vendorId": "Vendor1", "instrumentId": "APPL", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"},
 {"vendorId": "Vendor1", "instrumentId": "GOOG", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"}]
 ```
