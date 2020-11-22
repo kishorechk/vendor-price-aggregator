@@ -85,19 +85,7 @@ POST /api/prices
 {"vendorId": "Vendor1", "instrumentId": "GOOG", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"}]
 ```
 
-REST API documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
-
-### Technologies Used
-The system is designed as a microservice using the following technologies:
-* Java – versions 1.8
-* Spring – including Spring boot, Spring integration, Spring Web.
-* JMS – ActiveMQ
-* Caching – Ehcache
-* Store - in-memory map
-* Testing frameworks – JUnit/Mockito
-* Maven
-
-### How to run
+### Run Local
 
 Run the below commands from the command line:
 
@@ -108,8 +96,7 @@ cd vendor-price-aggregator
 
 ./mvnw spring-boot:run
 ```
-The command starts the Spring integration flows and REST services along with Swagger docs and UI for API documentation.
+The command starts the Spring Boot application which includes integration flows and REST services and Swagger docs and UI for API documentation.
 
-### Swagger UI
-
-REST API documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
+* REST API Endpoint - http://localhost:8080
+* REST API Documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
