@@ -9,11 +9,12 @@ The vendor price aggregator supports the following features:
     * all vendor prices by instrument
 
 ### Assumptions:
-Based on the clarifications from the team, I have made the below assumptions to implement this PoC - 
+Based on the email clarifications from the team, I have made the below assumptions to implement this PoC - 
 * Entity model consists few key fields but the real instrument price data will have more fields.
 * JSON message format used due to its lightweight nature and easy to parsing. In case of Vendor/Consumers requires differnt message format and structure, the solution can be extended by adding new channels and transformers to the integration flow.
 * The cache is configured to delete the records older than 30 days. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
-* No Authentication/Authorization for Client REST APIs due to time constraints. We can add OAuth2 framework to limit the access.  
+* Spring Boot uses default profiles, this can be extended to add env specific profles.
+* No Authentication/Authorization for Client REST APIs has been added due to time constraints. We can use OAuth2 framework to restrict the access based on the business requirements.  
 * Basic API documentation has been added using Swagger, this can be extended further to add detailed documentation.
 
 ### High Level FLow:
@@ -22,26 +23,26 @@ Based on the clarifications from the team, I have made the below assumptions to 
 
 #### Sequence Diagram
 
-The vendor price updates will be processed as shown below -
+The vendor price updates will be processed as shown below at high level. The Spring Integration Flows section has more details about all the Pipes & Filters.
 
 ![Vendor Sequence Diagram](./images/vendor_price_updates_sequence.png)
 
 ### Message Channels
 
-One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a ActiveMQ topic so that the vendor price data can be directly used by other consumers if required.
+**One Pub-sub Channel per vendor** - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates.
 
-One Pub-Sub channel to publish the aggregated pries for Clients to consume. This way, all the interested clients to subscribe for price updates. The channel type is a ActiveMQ topic to allow interested downstrean clients can subscribe.
+**One Pub-Sub channel** to publish the aggregated prices for Clients to consume. This way, all the interested clients to subscribe for price updates.
 
 ### Spring Integration (Java DSL) Flows 
 #### Vendor Jms Integration Flow
 
-This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration DSL to implement to this flow.
+This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration (Java DSL) to implement to this flow.
 
 ![Vendor Jms Integration Flow](./images/VendorJmsIntegrationFlow.png)
 
 #### Vendor File Integration Flow
 
-This integration flow show case read vendor prices from a file and publish them as messages. The solution uses Spring Integration DSL to implement to this flow. The poller is config to poll the source dir for evey 10000ms and process the file only once.
+This integration flow show case read vendor prices from a file and publish them as messages. The solution uses Spring Integration (Java DSL) to implement to this flow. The poller is config to poll the source dir for evey 10000ms and process the file only once.
 
 ![Vendor File Integration Flow](./images/VendorFileIntegrationFlow.png)
 
@@ -93,9 +94,6 @@ POST /api/prices
 {"vendorId": "Vendor1", "instrumentId": "GOOG", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"}]
 ```
 
-#### API Security
-The solution doesn't have any authentication/authorization layer. The APIs can be secured using OAuth2. 
-
 ### Run Local
 
 Run the below commands from the command line:
@@ -111,3 +109,11 @@ The command starts the Spring Boot application which includes integration flows 
 
 * REST API Endpoint - http://localhost:8080
 * REST API Documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
+
+#### Validation
+The application loads the prices from vendor input files from classpath. The below REST API endpoints can be used for validation - 
+
+```
+GET http://localhost:8080/api/prices/vendor/Vendor1
+GET http://localhost:8080/api/prices/instrument/GOOG
+```
