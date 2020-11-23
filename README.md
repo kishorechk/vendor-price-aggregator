@@ -14,7 +14,7 @@ Based on the email clarifications from the team, I have made the below assumptio
 * JSON message format used due to its lightweight nature and easy to parsing. In case of Vendor/Consumers requires differnt message format and structure, the solution can be extended by adding new channels and transformers to the integration flow.
 * The cache is configured to delete the records older than 30 days. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
 * Spring Boot uses default profiles, this can be extended to add env specific profles.
-* No Authentication/Authorization for Client REST APIs due to time constraints. We can add OAuth2 framework to limit the access.  
+* No Authentication/Authorization for Client REST APIs has been added due to time constraints. We can use OAuth2 framework to restrict the access based on the business requirements.  
 * Basic API documentation has been added using Swagger, this can be extended further to add detailed documentation.
 
 ### High Level FLow:
@@ -93,9 +93,6 @@ POST /api/prices
 [{"vendorId": "Vendor1", "instrumentId": "APPL", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"},
 {"vendorId": "Vendor1", "instrumentId": "GOOG", "bidPrice": 100.30, "askPrice": 101.10, "priceDate": "2020-11-21T10:20:22"}]
 ```
-
-#### API Security
-The solution doesn't have any authentication/authorization layer. The APIs can be secured using OAuth2. 
 
 ### Run Local
 
