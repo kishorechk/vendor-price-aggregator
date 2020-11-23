@@ -32,7 +32,7 @@ The vendor price updates will be processed as shown below -
 
 ![Vendor Sequence Diagram](./images/vendor_price_updates_sequence.png)
 
-### Spring Integration Flows
+### Spring Integration Flows (Java DSL)
 #### Vendor Jms Integration Flow
 
 This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration DSL to implement to this flow.
