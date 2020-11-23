@@ -23,7 +23,7 @@ Based on the email clarifications from the team, I have made the below assumptio
 
 #### Sequence Diagram
 
-The vendor price updates will be processed as shown below -
+The vendor price updates will be processed as shown below at high level. The Spring Integration Flows section has more details about all the Pipes & Filters.
 
 ![Vendor Sequence Diagram](./images/vendor_price_updates_sequence.png)
 
