@@ -11,7 +11,7 @@ The vendor price aggregator supports the following features:
 ### Assumptions:
 Based on the clarifications from the team, I have made the below assumptions to implement this PoC - 
 * Entity model consists few key fields but the real instrument price data will have more fields.
-* JSON message format used due to its lightweight nature and easy to parsing. In case of Vendor/Consumers wants data in other formats like (XML, CSV), the solution can be extended with new transformers.
+* JSON message format used due to its lightweight nature and easy to parsing. In case of Vendor/Consumers requires differnt message format and structure, the solution can be extended by adding new channels and transformers to the integration flow.
 * The cache is configured to delete the records older than 30 days. If there is no feed received for in last 30 days then the system cannot provide one to a client request.
 * No Authentication/Authorization for Client REST APIs due to time constraints. We can add OAuth2 framework to limit the access.  
 * Basic API documentation has been added using Swagger, this can be extended further to add detailed documentation.
@@ -32,7 +32,7 @@ The vendor price updates will be processed as shown below -
 
 ![Vendor Sequence Diagram](./images/vendor_price_updates_sequence.png)
 
-### Spring Integration Flows (Java DSL)
+### Spring Integration (Java DSL) Flows 
 #### Vendor Jms Integration Flow
 
 This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration DSL to implement to this flow.
@@ -41,7 +41,7 @@ This integration flow show case how to read vendor prices published in real time
 
 #### Vendor File Integration Flow
 
-This integration flow show case read vendor prices from a file and publish them as messages. The solution uses Spring Integration DSL to implement to this flow.
+This integration flow show case read vendor prices from a file and publish them as messages. The solution uses Spring Integration DSL to implement to this flow. The poller is config to poll the source dir for evey 10000ms and process the file only once.
 
 ![Vendor File Integration Flow](./images/VendorFileIntegrationFlow.png)
 
