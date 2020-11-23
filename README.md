@@ -36,13 +36,13 @@ One Pub-Sub channel to publish the aggregated pries for Clients to consume. This
 ### Spring Integration (Java DSL) Flows 
 #### Vendor Jms Integration Flow
 
-This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration (Java DSL) to implement to this flow. The components described in the flow are connected using the message channels.
+This integration flow show case how to read vendor prices published in real time via a messaging channel. The solution uses Spring Integration (Java DSL) to implement to this flow.
 
 ![Vendor Jms Integration Flow](./images/VendorJmsIntegrationFlow.png)
 
 #### Vendor File Integration Flow
 
-This integration flow show case read vendor prices from a file and publish them as messages. The solution uses Spring Integration (Java DSL) to implement to this flow. The poller is config to poll the source dir for evey 10000ms and process the file only once. The components described in the flow are connected using the message channels.
+This integration flow show case read vendor prices from a file and publish them as messages. The solution uses Spring Integration (Java DSL) to implement to this flow. The poller is config to poll the source dir for evey 10000ms and process the file only once.
 
 ![Vendor File Integration Flow](./images/VendorFileIntegrationFlow.png)
 
