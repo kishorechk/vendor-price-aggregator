@@ -29,9 +29,9 @@ The vendor price updates will be processed as shown below -
 
 ### Message Channels
 
-One Pub-sub Channel per vendor - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates. The channel type is a ActiveMQ topic so that the vendor price data can be directly used by other consumers if required.
+**One Pub-sub Channel per vendor** - Each vendor has a designated channel for the modified price data. This way, the original price data remains intact and each application can listen to its specific vendor Message Channel for the modified price updates.
 
-One Pub-Sub channel to publish the aggregated pries for Clients to consume. This way, all the interested clients to subscribe for price updates. The channel type is a ActiveMQ topic to allow interested downstrean clients can subscribe.
+**One Pub-Sub channel** to publish the aggregated prices for Clients to consume. This way, all the interested clients to subscribe for price updates.
 
 ### Spring Integration (Java DSL) Flows 
 #### Vendor Jms Integration Flow
