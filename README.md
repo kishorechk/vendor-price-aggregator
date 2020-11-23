@@ -111,7 +111,7 @@ The command starts the Spring Boot application which includes integration flows 
 * REST API Documentation - http://localhost:8080/swagger-ui/index.html#/price-data-controller
 
 #### Validation
-The application will load prices from vendor input files from classpath. The below REST API endpoints can be used for validation - 
+The application loads the prices from vendor input files from classpath. The below REST API endpoints can be used for validation - 
 
 ```
 GET http://localhost:8080/api/prices/vendor/Vendor1
