@@ -52,6 +52,7 @@ public class PriceDataController {
     
     @PostMapping
     public ResponseEntity<String> postPrices(@RequestBody Set<InstrumentPrice> prices) {
+		LOGGER.info("postPrices {}", prices);
     	int processed = 0;
     	for(InstrumentPrice price: prices) {
     		try {
@@ -64,8 +65,10 @@ public class PriceDataController {
     	}
     	ResponseEntity<String> response = null;
     	if(prices.size() == processed) {
+			LOGGER.info("All messages processed successfully");
     		response = new ResponseEntity<String>("All messages processed successfully", HttpStatus.OK);
     	} else {
+			LOGGER.info(processed + " messages processed out of "+ prices.size());
     		response = new ResponseEntity<String>(processed + " messages processed out of "+ prices.size(), HttpStatus.INTERNAL_SERVER_ERROR);
     	}
     	return response;
